@@ -7,7 +7,6 @@ package modelo;
 
 import java.util.HashMap;
 import java.util.List;
-import javax.ws.rs.PathParam;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Paciente;
 import mybatis.MyBatisUtil;
@@ -18,43 +17,25 @@ import org.apache.ibatis.session.SqlSession;
  * @author andre
  */
 public class PacienteDAO {
-    public List<Paciente> obtenerPacientePorIdMedico(Integer idMedico){
+
+    public List<Paciente> obtenerPacientePorIdMedico(Integer idMedico) {
         List<Paciente> paciente = null;
         SqlSession conexionDB = MyBatisUtil.getSesion();
-        
-        if(conexionDB != null){
-            try{
+
+        if (conexionDB != null) {
+            try {
                 paciente = conexionDB.selectList("paciente.obtenerPorIdMedico", idMedico);
-            }catch (Exception e){
-               e.printStackTrace();
-            } finally{
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
                 conexionDB.close();
             }
         }
         return paciente;
     }
-    
-    public Mensaje registrarPaciente(String nombre, String apellidoPaterno, String apellidoMaterno,
-                                      String fechaNacimiento, String sexo, float peso, float estatura,
-                                      int tallaInicial, String email, String telefono, String password,
-                                      byte[] fotografia, Integer idDomicilio, Integer idMedico){
-        
-        Paciente paciente = new Paciente();
-        paciente.setNombre(nombre);
-        paciente.setApellidoPaterno(apellidoPaterno);
-        paciente.setApellidoMaterno(apellidoMaterno);
-        paciente.setFechaNacimiento(fechaNacimiento);
-        paciente.setSexo(sexo);
-        paciente.setPeso(peso);
-        paciente.setEstatura(estatura);
-        paciente.setTallaInicial(tallaInicial);
-        paciente.setEmail(email);
-        paciente.setTelefono(telefono);
-        paciente.setPassword(password);
-        paciente.setFotografia(fotografia);
-        paciente.setIdDomicilio(idDomicilio);
-        paciente.setIdMedico(idMedico);
-        
+
+    public Mensaje registrarPaciente(Paciente paciente){
+         
         Mensaje msj = new Mensaje();
         SqlSession conexionDB = MyBatisUtil.getSesion();
         
@@ -64,7 +45,7 @@ public class PacienteDAO {
                 conexionDB.commit();
                 if (numeroFilasAfectadas > 0) {
                     msj.setError(false);
-                    msj.setMensaje("Información del Paciente registrado con éxito");
+                    msj.setMensaje("OK, " +numeroFilasAfectadas + ","+paciente.getNombre());
                 } else {
                     msj.setError(true);
                     msj.setMensaje("Lo sentimos, no se pudo registrar la información del Paciente.");
@@ -82,60 +63,64 @@ public class PacienteDAO {
 
         return msj;
     }
-    
-    public Mensaje editarPaciente(Integer idPaciente, String nombre, String apellidoPaterno, String apellidoMaterno,
-                                  String fechaNacimiento, String sexo, float peso, float estatura, int tallaInicial,
-                                  String telefono, String password, byte[] fotografia, Integer idDomicilio,
-                                  Integer idMedico){
-        
-        Mensaje msj = new Mensaje();
+
+    private HashMap<String, Object> toparam(Paciente paciente) {
         HashMap<String, Object> parametros = new HashMap<>();
-        parametros.put("idPaciente", idPaciente);
-        parametros.put("nombre", nombre);
-        parametros.put("apellidoPaterno", apellidoPaterno);
-        parametros.put("apellidoMaterno", apellidoMaterno);
-        parametros.put("fechaNacimiento", fechaNacimiento);
-        parametros.put("sexo", sexo);
-        parametros.put("peso", peso);
-        parametros.put("estatura", estatura);
-        parametros.put("tallaInicial", tallaInicial);
-        parametros.put("telefono", telefono);
-        parametros.put("password", password);
-        parametros.put("fotografia", fotografia);
-        parametros.put("idDomicilio", idDomicilio);
-        parametros.put("idMedico", idMedico);
+        parametros.put("idPaciente", paciente.getIdPaciente());
+        parametros.put("nombre", paciente.getNombre());
+        parametros.put("apellidoPaterno", paciente.getApellidoPaterno());
+        parametros.put("apellidoMaterno", paciente.getApellidoMaterno());
+        parametros.put("fechaNacimiento", paciente.getFechaNacimiento());
+        parametros.put("sexo", paciente.getSexo());
+        parametros.put("peso", paciente.getPeso());
+        parametros.put("estatura", paciente.getEstatura());
+        parametros.put("tallaInicial", paciente.getTallaInicial());
+        parametros.put("email", paciente.getEmail());
+        parametros.put("telefono", paciente.getTelefono());
+        parametros.put("password", paciente.getPassword());
+        parametros.put("fotografia", paciente.getFotografia());
+        parametros.put("idDomicilio", paciente.getIdDomicilio());
+        parametros.put("idMedico", paciente.getIdMedico());
 
-        SqlSession conexionDB = MyBatisUtil.getSesion();
+        return parametros;
+    }
 
-        if (conexionDB != null) {
+    public Mensaje editarPaciente(Paciente paciente) {
+
+        Mensaje response = new Mensaje();
+        HashMap<String, Object> parametros = toparam(paciente);
+        SqlSession conn = MyBatisUtil.getSesion();
+        response.setMensaje("OK");
+
+        if (conn != null) {
             try {
-                Paciente usuaerioExistente = conexionDB.selectOne("paciente.obtenerPacientePorId", idPaciente);
-                if (usuaerioExistente != null) {
-                    int numeroFilasAfectadas = conexionDB.update("paciente.editarPaciente", parametros);
-                    conexionDB.commit();
-                    if (numeroFilasAfectadas > 0) {
-                        msj.setError(false);
-                        msj.setMensaje("Paciente actualizado con éxito.");
+                if (paciente.getIdPaciente() == 0) {
+                    response.setMensaje("ID necesario para actualizar");
+                }
+                Paciente found = conn.selectOne("paciente.obtenerPacientePorId", paciente.getIdPaciente());
+                if (found != null) {
+                    int count = conn.update("paciente.editarPaciente", parametros);
+                    conn.commit();
+                    if (count > 0) {
+                        response.setMensaje("Paciente actualizado con éxito.");
                     } else {
-                        msj.setError(true);
-                        msj.setMensaje("Lo sentimos, no se pudo actualizar la información del Paciente.");
+                        response.setMensaje("Lo sentimos, no se pudo actualizar la información del Paciente.");
                     }
                 }
             } catch (Exception e) {
-                msj.setError(true);
-                msj.setMensaje("Error: " + e.getMessage());
+                response.setError(true);
+                response.setMensaje("Error: " + e.getMessage());
             } finally {
-                conexionDB.close();
+                conn.close();
             }
         } else {
-            msj.setError(true);
-            msj.setMensaje("Por el momento no hay conexión con la base de datos.");
+            response.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
 
-        return msj;
+        return response;
     }
-    
-    public Mensaje eliminarUsuario(Integer idPaciente) {
+
+    public Mensaje eliminarPaciente(Integer idPaciente) {
 
         Mensaje msj = new Mensaje();
         SqlSession conexionDB = MyBatisUtil.getSesion();
@@ -161,7 +146,7 @@ public class PacienteDAO {
             msj.setError(true);
             msj.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
-        
+
         return msj;
     }
 }

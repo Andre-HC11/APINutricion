@@ -9,44 +9,50 @@ package clienteescritorionutricion.modelo.pojo;
  *
  * @author andre
  */
-public class Medico {
-    private Integer idMedico;
+public class Paciente {
+    private Integer idPaciente;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String fechaNacimiento;
     private String sexo;
-    private String numeroDePersonal;
-    private String numeroCedulaProfecional;
+    private float peso;
+    private float estatura;
+    private int tallaInicial;
+    private String email;
+    private String telefono;
     private String password;
-    private Integer idRol;
-    private Integer idDomicilio;
     private byte[] fotografia;
+    private Integer idDomicilio;
+    private Integer idMedico;
 
-    public Medico() {
+    public Paciente() {
     }
 
-    public Medico(Integer idMedico, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String sexo, String numeroDePersonal, String numeroCedulaProfecional, String password, Integer idRol, Integer idDomicilio, byte[] fotografia) {
-        this.idMedico = idMedico;
+    public Paciente(Integer idPaciente, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String sexo, float peso, float estatura, int tallaInicial, String email, String telefono, String password, byte[] fotografia, Integer idDomicilio, Integer idMedico) {
+        this.idPaciente = idPaciente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
-        this.numeroDePersonal = numeroDePersonal;
-        this.numeroCedulaProfecional = numeroCedulaProfecional;
+        this.peso = peso;
+        this.estatura = estatura;
+        this.tallaInicial = tallaInicial;
+        this.email = email;
+        this.telefono = telefono;
         this.password = password;
-        this.idRol = idRol;
-        this.idDomicilio = idDomicilio;
         this.fotografia = fotografia;
-    }
-
-    public Integer getIdMedico() {
-        return idMedico;
-    }
-
-    public void setIdMedico(Integer idMedico) {
+        this.idDomicilio = idDomicilio;
         this.idMedico = idMedico;
+    }
+
+    public Integer getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(Integer idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
     public String getNombre() {
@@ -89,20 +95,44 @@ public class Medico {
         this.sexo = sexo;
     }
 
-    public String getNumeroDePersonal() {
-        return numeroDePersonal;
+    public float getPeso() {
+        return peso;
     }
 
-    public void setNumeroDePersonal(String numeroDePersonal) {
-        this.numeroDePersonal = numeroDePersonal;
+    public void setPeso(float peso) {
+        this.peso = peso;
     }
 
-    public String getNumeroCedulaProfecional() {
-        return numeroCedulaProfecional;
+    public float getEstatura() {
+        return estatura;
     }
 
-    public void setNumeroCedulaProfecional(String numeroCedulaProfecional) {
-        this.numeroCedulaProfecional = numeroCedulaProfecional;
+    public void setEstatura(float estatura) {
+        this.estatura = estatura;
+    }
+
+    public int getTallaInicial() {
+        return tallaInicial;
+    }
+
+    public void setTallaInicial(int tallaInicial) {
+        this.tallaInicial = tallaInicial;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getPassword() {
@@ -113,12 +143,12 @@ public class Medico {
         this.password = password;
     }
 
-    public Integer getIdRol() {
-        return idRol;
+    public byte[] getFotografia() {
+        return fotografia;
     }
 
-    public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
+    public void setFotografia(byte[] fotografia) {
+        this.fotografia = fotografia;
     }
 
     public Integer getIdDomicilio() {
@@ -129,11 +159,11 @@ public class Medico {
         this.idDomicilio = idDomicilio;
     }
 
-    public byte[] getFotografia() {
-        return fotografia;
+    public Integer getIdMedico() {
+        return idMedico;
     }
 
-    public void setFotografia(byte[] fotografia) {
-        this.fotografia = fotografia;
+    public void setIdMedico(Integer idMedico) {
+        this.idMedico = idMedico;
     }
 }

@@ -10,23 +10,34 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="451.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritorionutricion.FXMLInicioSesionController">
+<AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritorionutricion.FXMLInicioSesionController">
    <children>
-      <Pane prefHeight="451.0" prefWidth="332.0" style="-fx-background-color: c0c0c0;">
+      <Pane prefHeight="415.0" prefWidth="256.0" style="-fx-background-color: c0c0c0;">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="91.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="463.0" fitWidth="266.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/fondoLog.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="53.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/LoginMedico.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="32.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="32.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo.jpg" />
+               </image>
+            </ImageView>
          </children></Pane>
-      <Pane layoutX="332.0" prefHeight="451.0" prefWidth="349.0">
+      <Pane layoutX="254.0" prefHeight="415.0" prefWidth="428.0">
          <children>
-            <TextField fx:id="tfNumeroPersonal" layoutX="109.0" layoutY="146.0" promptText="Ej: 232145" />
-            <PasswordField fx:id="tfPassword" layoutX="109.0" layoutY="226.0" promptText="EJ: user12345" />
-            <Button layoutX="134.0" layoutY="307.0" mnemonicParsing="false" onAction="#btnIniciarSesion" text="Iniciar Sesión">
+            <TextField fx:id="tfNumeroPersonal" layoutX="140.0" layoutY="140.0" promptText="Ej: 232145" />
+            <PasswordField fx:id="tfPassword" layoutX="139.0" layoutY="226.0" promptText="EJ: user12345" />
+            <Button layoutX="160.0" layoutY="307.0" mnemonicParsing="false" onAction="#btnIniciarSesion" style="-fx-background-color: #06A9CD;" text="Iniciar Sesión">
                <font>
-                  <Font name="System Italic" size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font></Button>
             <Label fx:id="lbErrorNumPersonal" layoutX="109.0" layoutY="171.0" textFill="RED">
                <font>
@@ -38,16 +49,16 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <Label layoutX="97.0" layoutY="73.0" text="Inicio de Sesión">
+            <Label layoutX="127.0" layoutY="73.0" text="Inicio de Sesión">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="109.0" layoutY="123.0" text="Número de Personal">
+            <Label layoutX="139.0" layoutY="123.0" text="Número de Personal">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></Label>
-            <Label layoutX="109.0" layoutY="202.0" text="Contraseña">
+            <Label layoutX="140.0" layoutY="208.0" text="Contraseña">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></Label>

@@ -14,7 +14,7 @@ public class Medico {
     private Integer idMedico;
     private String nombre;
     private String apellidoPaterno;
-    private String apellidoMterno;
+    private String apellidoMaterno;
     private String fechaNacimiento;
     private String sexo;
     private String numeroDePersonal;
@@ -27,11 +27,11 @@ public class Medico {
     public Medico() {
     }
 
-    public Medico(Integer idMedico, String nombre, String apellidoPaterno, String apellidoMterno, String fechaNacimiento, String sexo, String numeroDePersonal, String numeroCedulaProfecional, String password, Integer idRol, Integer idDomicilio, byte[] fotografia) {
+    public Medico(Integer idMedico, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String sexo, String numeroDePersonal, String numeroCedulaProfecional, String password, Integer idRol, Integer idDomicilio, byte[] fotografia) {
         this.idMedico = idMedico;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMterno = apellidoMterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.numeroDePersonal = numeroDePersonal;
@@ -66,12 +66,12 @@ public class Medico {
         this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getApellidoMterno() {
-        return apellidoMterno;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setApellidoMterno(String apellidoMterno) {
-        this.apellidoMterno = apellidoMterno;
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
     public String getFechaNacimiento() {

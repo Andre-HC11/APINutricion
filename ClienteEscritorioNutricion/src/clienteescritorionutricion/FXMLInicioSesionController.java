@@ -8,6 +8,7 @@ package clienteescritorionutricion;
 import clienteescritorionutricion.modelo.ConexionHTTP;
 import clienteescritorionutricion.modelo.dao.InicioSesionDAO;
 import clienteescritorionutricion.modelo.pojo.CodigoHTTP;
+import clienteescritorionutricion.modelo.pojo.Medico;
 import clienteescritorionutricion.modelo.pojo.RespuestaLogin;
 import clienteescritorionutricion.utils.Constantes;
 import clienteescritorionutricion.utils.Utilidades;
@@ -85,19 +86,27 @@ public class FXMLInicioSesionController implements Initializable {
 
         if (!respuestaValidacionLogin.isError()) {
             Utilidades.mostrarAlertaSimple("Credenciales correctas ", respuestaValidacionLogin.getContenido(), Alert.AlertType.INFORMATION);
-            irPantallaPrincipal();
+            irPantallaPrincipal(respuestaValidacionLogin.getMedicoSesion());
         } else {
             Utilidades.mostrarAlertaSimple("Error ", respuestaValidacionLogin.getContenido(), Alert.AlertType.ERROR);
         }
     }
 
-    private void irPantallaPrincipal() {
+    private void irPantallaPrincipal(Medico medico) {
         try {
             Stage stagePrincipal = (Stage) tfNumeroPersonal.getScene().getWindow();
-            Parent vista = FXMLLoader.load(getClass().getResource("FXMLHome.fxml"));
+
+            FXMLLoader loadVista = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
+            Parent vista = loadVista.load();
+
+            FXMLHomeController controladorHome = loadVista.getController();
+            controladorHome.inicializarHome(medico);
+
             Scene scene = new Scene(vista);
             stagePrincipal.setScene(scene);
+            stagePrincipal.setTitle("Página Principal");
             stagePrincipal.show();
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
