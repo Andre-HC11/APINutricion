@@ -34,7 +34,8 @@ import javafx.stage.Stage;
  * @author andre
  */
 public class FXMLAdminPacientesController implements Initializable {
-
+    
+    private Paciente paciente;
     private int idMedico;
     private ObservableList<Paciente> pacientesMedico;
 
@@ -69,6 +70,7 @@ public class FXMLAdminPacientesController implements Initializable {
 
     @FXML
     private void btnIrFormularioRegistro(ActionEvent event) {
+        irFormularioPaciente(null, idMedico);
     }
 
     @FXML
@@ -107,6 +109,25 @@ public class FXMLAdminPacientesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
+    
+    private void irFormularioPaciente(Paciente paciente, int idMedico){
+        try {
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLRegistroPacientes.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLRegistroPacientesController controlador = vistaLoad.getController();
+            controlador.inicializarInformacion(paciente, idMedico);
+
+            Stage stage = new Stage();
+
+            Scene escenaAdmin = new Scene(vista);
+            stage.setScene(escenaAdmin);
+            stage.setTitle("Reguistro de Pacientes");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (Exception e) {
+        }
+    }
 
     private void configurarColumnasTabla() {
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
@@ -115,5 +136,9 @@ public class FXMLAdminPacientesController implements Initializable {
         colFechaNacimiento.setCellValueFactory(new PropertyValueFactory("fechaNacimiento"));
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
         colTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
+    }
+
+    @FXML
+    private void btnEliminar(ActionEvent event) {
     }
 }

@@ -7,6 +7,7 @@ package clienteescritorionutricion.modelo.dao;
 
 import clienteescritorionutricion.modelo.ConexionHTTP;
 import clienteescritorionutricion.modelo.pojo.CodigoHTTP;
+import clienteescritorionutricion.modelo.pojo.Mensaje;
 import clienteescritorionutricion.modelo.pojo.Paciente;
 import clienteescritorionutricion.utils.Constantes;
 import com.google.gson.Gson;
@@ -36,8 +37,36 @@ public class PacienteDAO {
             respuesta.put("pacientes", pacientes);
         }else{
             respuesta.put("error", true);
-            respuesta.put("mensaje", "hubo un error al obtener la información de los pacientes, " + "porfavor intentelo más tarde.");
+            respuesta.put("mensaje", "Hubo un error al obtener la información de los pacientes, " + "porfavor intentelo más tarde.");
         }
         return respuesta;
+    }
+    
+    public static Mensaje registrarPaciente(Paciente paciente) {
+        Mensaje msj = new Mensaje();
+        CodigoHTTP respuestaWS = ConexionHTTP.postRequest(Constantes.URL_WS + "paciente/registrar", paciente);
+
+        if (respuestaWS.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            Gson gson = new Gson();
+            msj = gson.fromJson(respuestaWS.getContenido(), Mensaje.class);
+        } else {
+            msj.setError(true);
+            msj.setMensaje("Error en la petición para el registro del Paciente.");
+        }
+        return msj;
+    }
+
+    public static Mensaje updatePaciente(Paciente paciente) {
+        Mensaje msj = new Mensaje();
+        CodigoHTTP respuestaWS = ConexionHTTP.putRequest(Constantes.URL_WS + "paciente/editar", paciente);
+
+        if (respuestaWS.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            Gson gson = new Gson();
+            msj = gson.fromJson(respuestaWS.getContenido(), Mensaje.class);
+        } else {
+            msj.setError(true);
+            msj.setMensaje("Error en la petición para el editar del Paciente.");
+        }
+        return msj;
     }
 }

@@ -5,15 +5,22 @@
  */
 package clienteescritorionutricion;
 
+import clienteescritorionutricion.modelo.dao.PacienteDAO;
+import clienteescritorionutricion.modelo.pojo.Mensaje;
 import clienteescritorionutricion.modelo.pojo.Paciente;
+import clienteescritorionutricion.utils.Utilidades;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -36,6 +43,18 @@ public class FXMLEditarPacienteController implements Initializable {
     private TextField tfEmail;
     @FXML
     private TextField tfTelefono;
+    @FXML
+    private Label lbErrorNombre;
+    @FXML
+    private Label lbErrorApellidoPaterno;
+    @FXML
+    private Label lbErrorApellidoMaterno;
+    @FXML
+    private Label lbErrorFechaNacimiento;
+    @FXML
+    private Label lbErrorEmail;
+    @FXML
+    private Label lbErrorTelefono;
 
     /**
      * Initializes the controller class.
@@ -56,5 +75,41 @@ public class FXMLEditarPacienteController implements Initializable {
         tfEmail.setDisable(true);
         tfEmail.setText(infoPaciente.getEmail());
         tfTelefono.setText(infoPaciente.getTelefono());
+    }
+
+    @FXML
+    private void btnActualizar(ActionEvent event) {
+        infoPaciente.setNombre(tfNombre.getText());
+        infoPaciente.setApellidoPaterno(tfApellidoPaterno.getText());
+        infoPaciente.setApellidoMaterno(tfApellidoMaterno.getText());
+        infoPaciente.setFechaNacimiento(dpFechaNacimiento.getValue().toString());
+        infoPaciente.setEmail(tfEmail.getText());
+        infoPaciente.setTelefono(tfTelefono.getText());        
+        editarPaciente(infoPaciente);
+    }
+    
+    private void editarPaciente (Paciente pacienteNuevo){
+        Mensaje msj = PacienteDAO.updatePaciente(pacienteNuevo);
+        
+        if (!msj.isError()) {
+            Utilidades.mostrarAlertaSimple("Paciente editado", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            cerrarVentana();
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al editar", msj.getMensaje(), Alert.AlertType.ERROR);
+        }
+    }
+    
+    private void verificarPaciente (){
+        
+    }
+
+    @FXML
+    private void btnCancelar(ActionEvent event) {
+        cerrarVentana();
+    }
+    
+    private void cerrarVentana(){
+        Stage stage = (Stage) tfNombre.getScene().getWindow();
+        stage.close();
     }
 }
