@@ -122,7 +122,7 @@ public class FXMLAdminPacientesController implements Initializable {
 
             Scene escenaAdmin = new Scene(vista);
             stage.setScene(escenaAdmin);
-            stage.setTitle("Reguistro de Pacientes");
+            stage.setTitle("Registro de Pacientes");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (Exception e) {
@@ -140,5 +140,30 @@ public class FXMLAdminPacientesController implements Initializable {
 
     @FXML
     private void btnEliminar(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnFormularioDomicilio(ActionEvent event) throws IOException {
+        int posisionSeleccionada = tvPacientes.getSelectionModel().getSelectedIndex();
+
+        if (posisionSeleccionada != -1) {
+            Paciente paciente = pacientesMedico.get(posisionSeleccionada);
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormularioDomicilio.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLFormularioDomicilioController controlador = vistaLoad.getController();
+            controlador.inicializarInformacion(paciente);
+
+            Stage stage = new Stage();
+
+            Scene escenaAdmin = new Scene(vista);
+            stage.setScene(escenaAdmin);
+            stage.setTitle("Domicilio Paciente");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            
+        } else {
+            Utilidades.mostrarAlertaSimple("Seleccion del Paciente", "Para modificar debes seleccionar un paciente de una tabla.", Alert.AlertType.WARNING);
+        }
     }
 }

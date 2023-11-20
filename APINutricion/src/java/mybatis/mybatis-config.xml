@@ -36,8 +36,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         
         <mapper resource="mybatis/mapper/AutenticacionMapper.xml"/>
         <mapper resource="mybatis/mapper/PacienteMapper.xml"/>
+        <mapper resource="mybatis/mapper/DomicilioMapper.xml"/>
         <mapper resource="mybatis/mapper/EstadoMapper.xml"/>
-
+        
     </mappers>
 
 </configuration>

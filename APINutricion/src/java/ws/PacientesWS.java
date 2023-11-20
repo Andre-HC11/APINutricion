@@ -14,8 +14,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.PacienteDAO;
 import modelo.pojo.Mensaje;
@@ -44,7 +46,7 @@ public class PacientesWS {
     }
     
     @POST
-    @Path("agregar")
+    @Path("registrar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje agregarPaciente(Paciente paciente){
@@ -75,5 +77,32 @@ public class PacientesWS {
     public Mensaje eliminarPaciente(@PathParam("idPaciente") Integer idPaciente){
         PacienteDAO dao = new PacienteDAO();
         return dao.eliminarPaciente(idPaciente);
+    }
+    
+    @Path("registrarFoto/{idPaciente}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje registrarFotografia(@PathParam("idPaciente") Integer idPaciente, byte[] foto){
+        Mensaje msj = null;
+        if (idPaciente != null && idPaciente > 0 && foto != null) {
+            msj = PacienteDAO.subirFotografiaPaciente(idPaciente, foto);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return msj;
+    }
+    
+    @Path("obtenerFoto/{idPaciente}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Paciente obtenerFotografia(@PathParam("idPaciente") Integer idPaciente){
+        Paciente paciente = null;
+        
+        if (idPaciente != null && idPaciente > 0 ) {
+            paciente = PacienteDAO.obtenerFotografia(idPaciente);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return paciente;
     }
 }

@@ -16,20 +16,21 @@ public class Paciente {
     private String apellidoMaterno;
     private String fechaNacimiento;
     private String sexo;
-    private float peso;
-    private float estatura;
+    private Float peso;
+    private Float estatura;
     private int tallaInicial;
     private String email;
     private String telefono;
     private String password;
     private byte[] fotografia;
+    private String fotografiaBase64;
     private Integer idDomicilio;
     private Integer idMedico;
 
     public Paciente() {
     }
 
-    public Paciente(Integer idPaciente, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String sexo, float peso, float estatura, int tallaInicial, String email, String telefono, String password, byte[] fotografia, Integer idDomicilio, Integer idMedico) {
+    public Paciente(Integer idPaciente, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String sexo, Float peso, Float estatura, int tallaInicial, String email, String telefono, String password, byte[] fotografia, String fotografiaBase64, Integer idDomicilio, Integer idMedico) {
         this.idPaciente = idPaciente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -43,6 +44,7 @@ public class Paciente {
         this.telefono = telefono;
         this.password = password;
         this.fotografia = fotografia;
+        this.fotografiaBase64 = fotografiaBase64;
         this.idDomicilio = idDomicilio;
         this.idMedico = idMedico;
     }
@@ -95,19 +97,19 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public float getPeso() {
+    public Float getPeso() {
         return peso;
     }
 
-    public void setPeso(float peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 
-    public float getEstatura() {
+    public Float getEstatura() {
         return estatura;
     }
 
-    public void setEstatura(float estatura) {
+    public void setEstatura(Float estatura) {
         this.estatura = estatura;
     }
 
@@ -149,6 +151,14 @@ public class Paciente {
 
     public void setFotografia(byte[] fotografia) {
         this.fotografia = fotografia;
+    }
+
+    public String getFotografiaBase64() {
+        return fotografiaBase64;
+    }
+
+    public void setFotografiaBase64(String fotografiaBase64) {
+        this.fotografiaBase64 = fotografiaBase64;
     }
 
     public Integer getIdDomicilio() {

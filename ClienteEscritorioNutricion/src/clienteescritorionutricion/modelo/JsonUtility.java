@@ -5,6 +5,7 @@
  */
 package clienteescritorionutricion.modelo;
 
+import clienteescritorionutricion.modelo.pojo.Domicilio;
 import clienteescritorionutricion.modelo.pojo.Paciente;
 
 /**
@@ -30,6 +31,21 @@ public class JsonUtility {
                 //.append(addChild("fotografia", "", true))
                 .append(addChild("idDomicilio", paciente.getIdDomicilio() + "", true))
                 .append(addChild("idMedico", paciente.getIdMedico() + "", false))
+                .append("}");
+
+        return jsonBuilder.toString();
+    }
+    
+    public static String createJsonDomicilio(Domicilio domicilio) {
+        StringBuilder jsonBuilder = new StringBuilder();
+        jsonBuilder.append("{")
+                .append(addChild("idDomicilio", domicilio.getIdDomicilio() + "", true))
+                .append(addChild("calle", domicilio.getCalle(), true))
+                .append(addChild("numero", domicilio.getNumero(), true))
+                .append(addChild("colonia", domicilio.getColonia(), true))
+                .append(addChild("codigoPostal", domicilio.getCodigoPostal(), true))
+                .append(addChild("idMunicipio", domicilio.getIdMunicipio() + "", true))
+                .append(addChild("idPaciente", domicilio.getIdPaciente() + "", false))
                 .append("}");
 
         return jsonBuilder.toString();

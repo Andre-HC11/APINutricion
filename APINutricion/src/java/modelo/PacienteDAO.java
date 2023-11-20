@@ -149,4 +149,52 @@ public class PacienteDAO {
 
         return msj;
     }
+    
+    public static Mensaje subirFotografiaPaciente(int idPaciente, byte[] foto) {
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionDB = MyBatisUtil.getSesion();
+
+        if (conexionDB != null) {
+            try {
+                Paciente pacienteFoto = new Paciente();
+                pacienteFoto.setIdPaciente(idPaciente);
+                pacienteFoto.setFotografia(foto);
+                int numeroFilasAfectadas = conexionDB.update("paciente.subirFoto", pacienteFoto);
+                conexionDB.commit();
+
+                if (numeroFilasAfectadas > 0) {
+                    msj.setError(false);
+                    msj.setMensaje("Fotografía del Paciente guardada con éxito");
+                } else {
+                    msj.setError(true);
+                    msj.setMensaje("Lo sentimos, no se pudo guardar la fotografía del Paciente, revisa la imagen.");
+                }
+
+            } catch (Exception e) {
+                msj.setMensaje("Error: " + e.getMessage());
+            } finally {
+                conexionDB.close();
+            }
+        } else {
+            msj.setMensaje("Lo sentimos no hay conexion para guardar la fotografia del paciente.");
+        }
+        return msj;
+    }
+    
+    public static Paciente obtenerFotografia(int idPaciente){
+        Paciente paciente = null;
+        SqlSession conexionDB = MyBatisUtil.getSesion();
+        
+        if (conexionDB != null){
+            try {
+                paciente = conexionDB.selectOne("paciente.obtenerFoto", idPaciente);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                conexionDB.close();
+            }
+        }
+        return paciente;
+    }
 }
