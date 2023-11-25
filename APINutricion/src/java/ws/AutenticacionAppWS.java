@@ -5,43 +5,41 @@
  */
 package ws;
 
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import modelo.AutenticacionDAO;
-import modelo.pojo.RespuestaLoginEscritorio;
+import javax.ws.rs.core.UriInfo;
+import modelo.AutenticacionAppDAO;
+import modelo.pojo.RespuestaLoginApp;
 
 /**
- * REST Web Service
  *
  * @author andre
  */
 @Path("autenticacion")
-public class AutenticacionWS {
-
+public class AutenticacionAppWS {
+    
     @Context
     private UriInfo context;
 
     /**
      * Creates a new instance of autenticacionWS
      */
-    public AutenticacionWS() {
+    public AutenticacionAppWS() {
     }
     
     @POST
-    @Path("loginEscritorio")
+    @Path("loginApp")
     @Produces(MediaType.APPLICATION_JSON)
-    public RespuestaLoginEscritorio iniciarSesionEscritorio(@FormParam("numeroDePersonal") String numeroDePersonal,
-                                                            @FormParam("password") String password) {
-        RespuestaLoginEscritorio respuesta = null;
-        if (!numeroDePersonal.isEmpty() && !password.isEmpty()) {
-            respuesta = AutenticacionDAO.verificarSesionEscritorio(numeroDePersonal, password);
+    public RespuestaLoginApp iniciarSesionApp(@FormParam("email") String email, @FormParam("password") String password) {
+        RespuestaLoginApp respuesta = null;
+        if (!email.isEmpty() && !password.isEmpty()) {
+            respuesta = AutenticacionAppDAO.verificarSesionApp(email, password);
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
