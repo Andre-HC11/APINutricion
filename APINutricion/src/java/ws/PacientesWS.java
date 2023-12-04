@@ -19,7 +19,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import modelo.AlimentoDAO;
 import modelo.PacienteDAO;
+import modelo.pojo.Alimento;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Paciente;
 import validator.PacienteValidator;
@@ -104,5 +106,13 @@ public class PacientesWS {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         return paciente;
+    }
+    
+    @Path("dieta/{idPaciente}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Alimento> obtenerDietaPaciente(@PathParam("idPaciente") Integer idPaciente){
+      AlimentoDAO dao = new AlimentoDAO();
+      return dao.obtenerDietaPaciente(idPaciente);
     }
 }
