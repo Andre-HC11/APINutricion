@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "dieta">
+    <select id = "obtenerDietaPaciente" parameterType="int" resultType="modelo.pojo.Alimento">
+        SELECT pa.idPaciente, a.nombre AS alimento, a.caloriasPorPorcion, a.cantidad, porcion.nombre AS porcion
+        FROM paciente_alimento pa
+        INNER JOIN paciente p ON pa.idPaciente = p.idPaciente
+        INNER JOIN alimento a ON pa.idAlimento = a.idAlimento
+        INNER JOIN porcion ON a.idPorcion = porcion.idPorcion
+        WHERE pa.idPaciente = #{idPaciente}
+    </select>
+</mapper>
