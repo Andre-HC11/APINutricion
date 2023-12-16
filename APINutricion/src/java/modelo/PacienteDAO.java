@@ -63,7 +63,7 @@ public class PacienteDAO {
 
         return msj;
     }
-
+    
     private HashMap<String, Object> toparam(Paciente paciente) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idPaciente", paciente.getIdPaciente());

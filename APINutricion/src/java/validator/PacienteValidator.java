@@ -43,25 +43,25 @@ public class PacienteValidator {
             response.setMensaje("Sexo");
         }
 
-        /*if (isNullOrEmpty(paciente.getPeso())) {
+        if (isNullOrEmpty("" + paciente.getPeso())) {
             response.setMensaje("Peso");
         }
 
-        if (isNullOrEmpty(paciente.getEstatura())) {
+        if (isNullOrEmpty("" + paciente.getEstatura())) {
             response.setMensaje("Estatura");
         }
 
-        if (isNullOrEmpty(paciente.getTallaInicial())) {
+        if (isNullOrEmpty("" + paciente.getTallaInicial())) {
             response.setMensaje("Talla Inicial");
-        }*/
+        }
 
         if (isNullOrEmpty(paciente.getEmail())) {
             response.setMensaje("Email");
         }
 
-        /*if (isNullOrEmpty(paciente.getIdMedico())) {
+        if (isNullOrEmpty("" + paciente.getIdMedico())) {
             response.setMensaje("ID Medico");
-        }*/
+        }
 
         if (!response.getMensaje().equals("OK")) {
             response.setError(true);
